@@ -1,0 +1,35 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "realtime": "node realtime/server.js",
+        "game": "concurrently -k -n web,relay,vite -c green,yellow,blue \"node scripts/serve.cjs 127.0.0.1 8000\" \"node realtime/server.js\" \"vite\"",
+        "game:lan": "vite build && concurrently -k -n web,relay -c green,yellow \"node scripts/serve.cjs 0.0.0.0 8000\" \"node realtime/server.js\"",
+        "test:relay": "node --test realtime/relay.test.js",
+        "test:engine": "node --test tests/js/engine.test.mjs tests/js/chips.test.mjs",
+        "test:e2e": "playwright test"
+    },
+    "devDependencies": {
+        "@headlessui/react": "^1.4.2",
+        "@inertiajs/react": "^1.0.0",
+        "@playwright/test": "^1.64.1",
+        "@tailwindcss/forms": "^0.5.3",
+        "@vitejs/plugin-react": "^4.2.0",
+        "autoprefixer": "^10.4.12",
+        "axios": "^1.1.2",
+        "concurrently": "^9.2.5",
+        "framer-motion": "^11.18.2",
+        "laravel-vite-plugin": "^0.7.2",
+        "lucide-react": "^0.468.0",
+        "postcss": "^8.4.31",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "socket.io-client": "^4.8.4",
+        "tailwindcss": "^3.2.1",
+        "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "socket.io": "^4.8.4"
+    }
+}

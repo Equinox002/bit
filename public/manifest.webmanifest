@@ -1,0 +1,13 @@
+{
+    "name": "Betwixt",
+    "short_name": "Betwixt",
+    "description": "A card game of ranges and a shared pot. Virtual chips only.",
+    "start_url": "/pass-and-play",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#062b21",
+    "theme_color": "#062b21",
+    "icons": [
+        { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    ]
+}

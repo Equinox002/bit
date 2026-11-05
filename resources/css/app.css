@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    /* A dark room, lit from above. */
+    .table-room {
+        background:
+            radial-gradient(110% 60% at 50% 0%, rgb(226 189 98 / 0.13), transparent 62%),
+            radial-gradient(85% 65% at 50% 50%, #0b2e24 0%, transparent 72%),
+            #0b0e0d;
+    }
+
+    /* The padded leather edge of the table, with a gold inlay. */
+    .table-rail {
+        --rail: 10px;
+        border-radius: 9999px;
+        background: linear-gradient(165deg, #54331f 0%, #2d1a0f 38%, #170d07 100%);
+        box-shadow:
+            0 28px 56px -16px rgb(0 0 0 / 0.85),
+            0 0 0 1px rgb(0 0 0 / 0.6),
+            inset 0 1px 0 rgb(255 255 255 / 0.18),
+            inset 0 -3px 6px rgb(0 0 0 / 0.55);
+    }
+
+    @media (min-width: 640px) {
+        .table-rail {
+            --rail: 16px;
+        }
+    }
+
+    .table-rail::before {
+        content: '';
+        position: absolute;
+        inset: calc(var(--rail) - 3px);
+        border: 1.5px solid rgb(226 189 98 / 0.6);
+        border-radius: inherit;
+    }
+
+    /* Felt: a pool of light in the middle, falling off to the edge, with a fine woven grain. */
+    .table-felt {
+        position: absolute;
+        inset: var(--rail);
+        overflow: hidden;
+        border-radius: inherit;
+        /* Its own layer, so chips and seats moving above it never repaint the cloth. */
+        transform: translateZ(0);
+        background:
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"),
+            radial-gradient(ellipse at 50% 42%, #1c8263 0%, #116049 36%, #0a4032 70%, #062b21 100%);
+        box-shadow: inset 0 0 44px 10px rgb(0 0 0 / 0.55);
+    }
+
+    /* The printed line on the felt. */
+    .table-felt::after {
+        content: '';
+        position: absolute;
+        inset: 6%;
+        border: 1px solid rgb(226 189 98 / 0.24);
+        border-radius: inherit;
+    }
+
+    /* A game table's name, printed faintly into the cloth. */
+    .table-crest {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 13%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(0.8rem, 2.4vw, 1.5rem);
+        font-weight: 700;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgb(226 189 98 / 0.2);
+    }
+
+    /* Shorter screens need that space for the pot. */
+    @media (min-height: 820px) {
+        .table-crest {
+            display: block;
+        }
+    }
+
+    /*
+     * Only the glow's opacity animates. The graphics hardware can do that alone, whereas animating
+     * the shadow itself would repaint the table on every frame and drain a phone's battery.
+     */
+    .turn-glow {
+        box-shadow: 0 0 0 2px #e2bd62;
+    }
+
+    .turn-glow::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        border-radius: inherit;
+        box-shadow: 0 0 24px 2px rgb(226 189 98 / 0.75);
+        animation: turn-glow 1.8s ease-in-out infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .turn-glow::after {
+            animation: none;
+        }
+    }
+
+    @keyframes turn-glow {
+        0%, 100% {
+            opacity: 0.25;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+}

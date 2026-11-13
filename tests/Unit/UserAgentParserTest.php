@@ -27,9 +27,7 @@ class UserAgentParserTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider agents
-     */
+    #[DataProvider('agents')]
     public function test_it_recognises_common_browsers(?string $agent, string $browser, string $os, string $device): void
     {
         $this->assertSame(

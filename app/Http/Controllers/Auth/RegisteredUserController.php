@@ -33,7 +33,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            // The not_regex guards against the CRLF advisory that Laravel 10 has no fix for.
+            // Laravel 12.60+ fixes the CRLF advisory in the email rule; the not_regex is a second guard.
             'email' => 'required|string|lowercase|email|not_regex:/[\r\n]/|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);

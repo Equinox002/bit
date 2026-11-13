@@ -65,8 +65,8 @@ on what the visitor sent.
 
 | Decision | Choice | Why |
 |---|---|---|
-| Framework | Laravel 10, React (JSX), Inertia | Existing project; owner's choice |
-| PHP | 8.1 (XAMPP) | Owner's choice. **Laravel 10 has unpatched advisories, so upgrade before exposing it to the internet** |
+| Framework | Laravel 12, React (JSX), Inertia | Existing project; upgraded from 10 because Laravel 10 and 11 have unpatched advisories. `composer.json` requires 12.69 or later, the first release with every known advisory fixed. The Laravel 10 folder layout is kept, which Laravel supports |
+| PHP | 8.2 or later | Laravel 12 requires it. XAMPP's PHP 8.1 can no longer run this project |
 | Real-time | Socket.IO relay in `realtime/` (Node) | Reverb needs PHP 8.2+. The relay holds no game logic |
 | Commands | HTTP POST with idempotency key | Reuses session auth, CSRF, rate limiting and validation |
 | Updates | Socket sends a version number, client fetches its own filtered state | One authorization path; hidden information can't leak through broadcasts |
@@ -150,9 +150,8 @@ Defaults chosen to resolve gaps or conflicts in the spec. The owner has seen the
 
 ## Pending
 
-- [ ] **Security: move off Laravel 10 before putting this on the internet.** It needs PHP 8.2+.
-      Laravel's advisories have no fix for version 10. Registration and profile emails now reject
-      line breaks, which targets the CRLF advisory but doesn't replace the framework fix.
+- [x] Security: moved off Laravel 10 to Laravel 12. `composer audit` reports no advisories.
+      Registration and profile emails still reject line breaks, as an extra guard against CRLF.
 - [ ] Security: `npm audit` reports issues including a high-severity one in Vite 4. The fix is a
       major upgrade, so it is not applied. It affects the development toolchain.
 - [ ] Try it on real phones on a real network. Automated tests ran in separate browser sessions on
